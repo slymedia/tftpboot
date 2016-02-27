@@ -1,0 +1,20 @@
+default local
+timeout 100
+prompt 1
+display msgs/boot.msg
+F1 msgs/boot.msg
+F2 msgs/general.msg
+F3 msgs/expert.msg
+F4 msgs/param.msg
+F5 msgs/rescue.msg
+F7 msgs/snake.msg
+
+label local
+  localboot 1
+
+label 0
+  localboot 1
+
+label 1
+  kernel CENTOS-7.0_64/vmlinuz
+  append initrd=CENTOS-7.0_64/initrd.img  ramdisk_size=9689 ks=nfs:<NFS_SERVER_IP>:/tftpboot/kickstart/ks_base-centos7.cfg ip=dhcp

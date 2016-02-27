@@ -1,0 +1,5 @@
+default CENTOS-7.0_64
+
+label CENTOS-7.0_64
+    kernel CENTOS-7.0_64/vmlinuz
+    append initrd=CENTOS-7.0_64/initrd.img  ramdisk_size=8262 ks=nfs:<NFS_SERVER_IP>:/tftpboot/kickstart/ks_base-CentOS7.cfg
