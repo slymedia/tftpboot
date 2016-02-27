@@ -1,2 +1,2 @@
 # tftpboot
-Build a kickstart NFS server
+Build a CentOS 7 based kickstart NFS server
