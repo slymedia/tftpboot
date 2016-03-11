@@ -39,14 +39,49 @@ part /var --fstype ext4 --size 10240
 part / --fstype ext4 --size 1 --grow
 
 
-%include /mnt/ks/include/packages.default
+#%include /mnt/ks/include/packages.default
+%packages
 
+@base
+@compat-libraries
+@console-internet
+@core
+@debugging
+@directory-client
+@network-file-system-client
+@network-tools
+@performance
+@development
+certmonger
+dos2unix
+iptraf
+iptstate
+krb5-workstation
+lm_sensors
+nscd
+nss-pam-ldapd
+openldap-clients
+pam_krb5
+pam_ldap
+perl-LDAP
+sendmail
+sendmail-cf
+sgpio
+tcp_wrappers
+git
+-dovecot
+-oddjob-mkhomedir
+-postfix
+sssd
+-ypbind
+
+%end
 
 
 %pre --log=/root/installation_pre.log
 HostName=`hostname -s` 
 mkdir -p /mnt/ks
-mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
+#mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
 
 %end
 
@@ -67,7 +102,7 @@ hostname $HostName
 echo ${HostName} > /etc/hostname
 
 mkdir -p /mnt/ks
-mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
+#mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
 
 if [ "$VMWareSystem" == "$VMWARE" ]; then
 	#repo --name="VMWare Tools" --baseurl=http://packages.vmware.com/packages/rhel7/x86_64/
