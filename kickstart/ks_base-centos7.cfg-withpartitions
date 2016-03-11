@@ -17,8 +17,31 @@ selinux --disabled
 timezone --utc America/New_York
 bootloader --location=mbr 
 
-%include /mnt/ks/include/partition.default
+#
+#%include /mnt/ks/include/partition.default
+# The following is the partition information you requested
+# Note that any partitions you deleted are not expressed
+# here so unless you clear all partitions first, this is
+# not guaranteed to work
+##Disk partitioning information
+#part / --fstype ext4 --size 20480 --asprimary
+#part swap --size 16384 --asprimary
+#part /boot --fstype ext4 --size 300
+#part /var --fstype ext4 --size 10240
+#part /scratch --fstype ext4 --size 1 --grow
+#Partition clearing information
+#clearpart --all --initlabel
+#autopart
+clearpart --all
+part swap --size 4096 --asprimary
+part /boot --fstype ext4 --size 300
+part /var --fstype ext4 --size 10240
+part / --fstype ext4 --size 1 --grow
+
+
 %include /mnt/ks/include/packages.default
+
+
 
 %pre --log=/root/installation_pre.log
 HostName=`hostname -s` 
