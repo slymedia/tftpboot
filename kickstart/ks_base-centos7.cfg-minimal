@@ -23,22 +23,12 @@ bootloader --location=mbr
 # here so unless you clear all partitions first, this is
 # not guaranteed to work
 #Disk partitioning information
-#part / --fstype ext4 --size 20480 --asprimary
-#part swap --size 16384 --asprimary
-#part /boot --fstype ext4 --size 300
-#part /var --fstype ext4 --size 10240
-#part /scratch --fstype ext4 --size 1 --grow
-#Partition clearing information
-#clearpart --all --initlabel
-#autopart
 clearpart --all
 part swap --size 4096 --asprimary
 part /boot --fstype ext4 --size 300
 part /var --fstype ext4 --size 10240
 part / --fstype ext4 --size 1 --grow
 
-
-#%include /mnt/ks/include/packages.default
 %packages
 
 @base
@@ -91,15 +81,12 @@ mkdir -p /mnt/ks
 #---------------------------------------------
 #
 HostName=`hostname -s` 
-ConFigDir="/mnt/configs"
 VMWareSystem=`cat /sys/class/dmi/id/sys_vendor`
 VMWARE="VMware, Inc."
-HostConFigDir="$ConFigDir/hosts/$HostName"
 hostname $HostName
 echo ${HostName} > /etc/hostname
 
 mkdir -p /mnt/ks
-#mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
 
 if [ "$VMWareSystem" == "$VMWARE" ]; then
 	#repo --name="VMWare Tools" --baseurl=http://packages.vmware.com/packages/rhel7/x86_64/
