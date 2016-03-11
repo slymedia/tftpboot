@@ -99,6 +99,12 @@ if [ "$VMWareSystem" == "$VMWARE" ]; then
 	yum -y install open-vm-tools-deploypkg
 fi
 
+# install init.d installer script
+wget -N -P /etc/init.d/ https://raw.githubusercontent.com/slymedia/tftpboot/master/kickstart/installer-init.d-slymedia
+mv /etc/init.d/installer-init.d-slymedia /etc/init.d/slymedia-installer
+chmod 755 /etc/init.d/slymedia-installer
+chkconfig --add slymedia-installer
+
 #
 # instal epel yum repo
 #
