@@ -1,0 +1,79 @@
+# Kickstart file 
+install
+text
+url --url http://mirror.centos.org/centos/7/os/x86_64
+lang en_US.UTF-8
+keyboard us
+#network --onboot yes --device eth0 --mtu=1500 --bootproto dhcp
+rootpw  --iscrypted $1$KTAmNG9s$b4PRcobrFyG2M5nL/PoN2.
+# set to "NotAVeryGoodOne" change with command (openssl passwd -1 “RootPasswordToEncrypt”)
+
+reboot
+# Reboot after installation
+firewall --disabled
+authconfig --useshadow --passalgo=sha512
+#authconfig --enablelocauthorize --enableldap --enablekrb5 --updateall
+selinux --disabled
+timezone --utc America/New_York
+bootloader --location=mbr 
+
+%include /mnt/ks/include/partition.default
+%include /mnt/ks/include/packages.default
+
+%pre --log=/root/installation_pre.log
+HostName=`hostname -s` 
+mkdir -p /mnt/ks
+mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
+
+%end
+
+%post --log=/root/installation_post.log
+
+#---------------------------------------------
+#
+# Variable Declaration (edit for your setup)
+#
+#---------------------------------------------
+#
+HostName=`hostname -s` 
+ConFigDir="/mnt/configs"
+VMWareSystem=`cat /sys/class/dmi/id/sys_vendor`
+VMWARE="VMware, Inc."
+HostConFigDir="$ConFigDir/hosts/$HostName"
+hostname $HostName
+echo ${HostName} > /etc/hostname
+
+mkdir -p /mnt/ks
+mount -o nolock <NFS_SERVER_IP>:/tftpboot/kickstart /mnt/ks
+
+if [ "$VMWareSystem" == "$VMWARE" ]; then
+	#repo --name="VMWare Tools" --baseurl=http://packages.vmware.com/packages/rhel7/x86_64/
+	echo "[vmware-tools]" > /etc/yum.repos.d/vmware.repo
+	echo "name = VMware Tools" >> /etc/yum.repos.d/vmware.repo
+	echo "baseurl = http://packages.vmware.com/packages/rhel7/x86_64/" >> /etc/yum.repos.d/vmware.repo
+	echo "enabled = 1" >> /etc/yum.repos.d/vmware.repo
+	echo "gpgcheck = 1" >> /etc/yum.repos.d/vmware.repo
+	rpm --import http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub
+	yum -y install open-vm-tools-deploypkg
+fi
+
+#
+# instal epel yum repo
+#
+yum -y install epel-release
+
+#
+# shutdown ntpd if it's running as IPA needs to run ntpdate
+#
+systemctl stop ntpd
+#
+# include build scripts
+#
+#%include /mnt/ks/include/script.default
+
+#
+# Update OS
+#
+yum -y update
+
+%end
