@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+# SlyMedia Installer
+# 
+# chkconfig: 2345 9 20
+# description: Install software based off a git repository
+
+# Fail if one of the functions fail.
+set -e
+randpw ()
+{
+    date +%s | sha256sum | base64 | head -c 7 ; echo
+}
+
+start()
+{
+	cd /;
+        if [ -d /export/tftpboot ]; then
+            echo "Installer has already been run on this machine!"
+            echo "Please rename or remove the /export/tftpboot first and rerun this installer."
+            echo "(service slymedia-installer start)"
+            echo ""
+            echo "Deactivating this installer service from starting at boot"
+            echo "(chkconfig off slymedia-installer)"
+            echo ""
+            chkconfig slymedia-intstaller off
+            exit 1;
+        else
+            yum -y install git gettext sendmail
+            git clone https://slymedia.codebasehq.com/software-projects/tftpboot.git   # asks or user/pass
+	          #git clone git@codebasehq.com:slymedia/software-projects/tftpboot.git    # ssh key shared
+            chkconfig slymedia-installer off;
+        fi
+    return 0;
+}
+
+do-install()
+{
+    #
+    # Note: it is assumed that we are installing this into /opt/fedora-repository
+    #      update the path if you change this installation prefix
+    #
+    chmod 755 /export/tftpboot/installer.sh
+    cd /export/tftpboot/
+    ./installer.sh >/root/installation.log 2>&1 &
+    echo "Running the installation script...."
+    echo "To watch the installation process run the command:"
+    echo "tail -f /root/installation.log"
+    echo "Please be patient as this installation process can take up to an hour"
+    echo ""
+}
+
+case "$1" in
+  start)
+        echo $"Installing software .... "
+    start
+    do-install
+  ;;
+  stop|status|restart|reload|force-reload)
+   # do nothing
+ ;;
+esac
