@@ -27,8 +27,7 @@ start()
             exit 1;
         else
             yum -y install git gettext sendmail
-            #git clone https://slymedia.codebasehq.com/software-projects/tftpboot.git   # asks or user/pass
-	    git clone git@codebasehq.com:slymedia/software-projects/tftpboot.git    # ssh key shared
+	    git clone git@codebasehq.com:slymedia/software-projects/export.git    # ssh key shared
             chkconfig slymedia-installer off;
         fi
     return 0;
