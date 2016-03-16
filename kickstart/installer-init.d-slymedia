@@ -72,7 +72,7 @@ send-ssh-key()
 }
 install-config()
 {
-	wget 
+	wget -N -P /root https://raw.githubusercontent.com/slymedia/tftpboot/master/kickstart/slymedia-installer.conf
 }
 
 case "$1" in
