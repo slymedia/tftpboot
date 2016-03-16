@@ -39,6 +39,19 @@ do-install()
     # Note: it is assumed that we are installing this into /opt/fedora-repository
     #      update the path if you change this installation prefix
     #
+    if [ ! -f /root/slymedia-installer.conf ]; then
+    	install-config
+    	echo "Error: /root/slymedia-installer.conf is not configured!"
+    	echo "Please configure the file /root/slymedia-installer.conf"
+    	exit 1;
+    else
+    	. /root/slymedia-installer.conf   # source script variables
+    fi
+    if [ $NFS_SERVER == "host.domain.com"]; then
+    	echo "Error: /root/slymedia-installer.conf is not configured!"
+    	echo "Please configure the file /root/slymedia-installer.conf"
+    	exit 1;
+    fi
     chmod 755 /export/tftpboot/installer.sh
     cd /export/tftpboot/
     ./installer.sh >/root/installation.log 2>&1 &
