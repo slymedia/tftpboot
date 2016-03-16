@@ -70,6 +70,10 @@ send-ssh-key()
 		sleep 60      # make sure it gets sent before reboot
 	fi
 }
+install-config()
+{
+	wget 
+}
 
 case "$1" in
   start)
