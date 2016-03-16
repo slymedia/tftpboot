@@ -45,7 +45,7 @@ do-install()
     echo "Running the installation script...."
     echo "To watch the installation process run the command:"
     echo "tail -f /root/installation.log"
-    echo "Please be patient as this installation process can take up to an hour"
+    echo "Please be patient as this installation process can take a while to complete."
     echo ""
 }
 
