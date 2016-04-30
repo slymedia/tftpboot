@@ -36,7 +36,7 @@ start()
 do-install()
 {
     #
-    # Note: it is assumed that we are installing this into /opt/fedora-repository
+    # Note: it is assumed that we are installing this into /export
     #      update the path if you change this installation prefix
     #
     if [ ! -f /root/slymedia-installer.conf ]; then
