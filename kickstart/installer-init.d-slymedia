@@ -93,6 +93,11 @@ do-install()
 
 send-ssh-key()
 {
+    if [ ! -f /root/slymedia-installer.conf ]; then
+    	install-config
+    else
+    	. /root/slymedia-installer.conf   # source script variables
+    fi
 	#
 	# Generate ssh key and email to support for access. 
 	#
@@ -100,7 +105,7 @@ send-ssh-key()
 		#
 		# Send email to add SSH key
 		#
-		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for $ORGANIZATION" support@slynet.com
+		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
 		sleep 60      # make sure it gets sent before reboot
 	else
 		# Generate a key
@@ -108,7 +113,7 @@ send-ssh-key()
 		#
 		# Send email to add SSH key
 		#
-		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for $ORGANIZATION" support@slynet.com
+		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
 		sleep 60      # make sure it gets sent before reboot
 	fi
 }
