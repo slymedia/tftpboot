@@ -16,7 +16,9 @@ start()
 {
 	cd /;
         if [ -d /export/tftpboot ]; then
-        
+                
+       	    echo ""
+            echo ""
        	    echo "###### Warning ################################"
             echo "Installer has already been run on this machine!"
             echo "###############################################"
