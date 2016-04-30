@@ -109,7 +109,7 @@ case "$1" in
   clean)
         echo ""
         echo -n "Removing /export...."
-        if [ -d /export ]a; then
+        if [ -d /export ]; then
         	rm -rf /export
         fi
         echo "Done."
