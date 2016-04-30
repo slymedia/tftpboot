@@ -47,11 +47,6 @@ do-install()
     else
     	. /root/slymedia-installer.conf   # source script variables
     fi
-    if [ $NFS_SERVER == "host.domain.com"]; then
-    	echo "Error: /root/slymedia-installer.conf is not configured!"
-    	echo "Please configure the file /root/slymedia-installer.conf"
-    	exit 1;
-    fi
     chmod 755 /export/tftpboot/installer.sh
     cd /export/tftpboot/
     ./installer.sh >/root/installation.log 2>&1 &
