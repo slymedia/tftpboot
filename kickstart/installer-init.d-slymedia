@@ -95,6 +95,7 @@ send-ssh-key()
 {
     if [ ! -f /root/slymedia-installer.conf ]; then
     	install-config
+    	. /root/slymedia-installer.conf   # source script variables
     else
     	. /root/slymedia-installer.conf   # source script variables
     fi
