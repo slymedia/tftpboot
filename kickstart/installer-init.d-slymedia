@@ -106,6 +106,14 @@ case "$1" in
         start
         do-install
   ;;
+  clean)
+        echo ""
+        echo -n "Removing /export...."
+        rm -rf /export
+        echo "Done."
+        echo ""
+  ;;
+
   stop|status|restart|reload|force-reload)
    # do nothing
  ;;
