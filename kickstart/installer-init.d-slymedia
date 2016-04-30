@@ -107,7 +107,6 @@ send-ssh-key()
 		# Send email to add SSH key
 		#
 		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
-		sleep 60      # make sure it gets sent before reboot
 	else
 		# Generate a key
 		ssh-keygen -f ~/.ssh/id_rsa -N ""
@@ -115,7 +114,6 @@ send-ssh-key()
 		# Send email to add SSH key
 		#
 		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
-		sleep 60      # make sure it gets sent before reboot
 	fi
 }
 install-config()
