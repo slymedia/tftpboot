@@ -47,6 +47,8 @@ do-install()
     #
     if [ ! -f /root/slymedia-installer.conf ]; then
     	install-config
+    	echo ""
+        echo ""
     	echo "Error: /root/slymedia-installer.conf is not configured!"
     	echo "Please configure the file /root/slymedia-installer.conf"
     	exit 1;
@@ -56,6 +58,8 @@ do-install()
     chmod 755 /export/tftpboot/installer.sh
     cd /export/tftpboot/
     ./installer.sh >/root/installation.log 2>&1 &
+    echo ""
+    echo ""
     echo "Running the installation script...."
     echo ""
     echo "Please be patient as this installation process can take a while to complete."
@@ -95,9 +99,12 @@ install-config()
 
 case "$1" in
   start)
+        echo ""
+        echo ""
         echo $"Installing software .... "
-    start
-    do-install
+        echo ""
+        start
+        do-install
   ;;
   stop|status|restart|reload|force-reload)
    # do nothing
