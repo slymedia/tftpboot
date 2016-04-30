@@ -12,7 +12,27 @@ randpw ()
     date +%s | sha256sum | base64 | head -c 7 ; echo
 }
 
-start()
+motd()
+{
+	#
+	# set MOTD message
+	#
+	echo " " >> /etc/motd
+	echo " " >> /etc/motd
+	echo "Your server is initially installed but still needs software configured." > /etc/motd
+	echo " " >> /etc/motd
+	echo "An email has been sent to our headquarters with a copy of your SSH key in order to add it to gain access to the software." >> /etc/motd
+	echo " " >> /etc/motd
+	echo "Once you receive confirmation that access has been granted:" >> /etc/motd
+	echo " " >> /etc/motd
+	echo "run the following command as root # chkconfig slymedia-installer on" >> /etc/motd
+	echo "then reboot this server to complete the installation process." >> /etc/motd
+	echo " " >> /etc/motd
+	echo "Also be sure to update this /etc/motd message with your own information." >> /etc/motd
+	echo " " >> /etc/motd
+}
+
+clone()
 {
 	cd /;
         if [ -d /export/tftpboot ]; then
@@ -80,7 +100,7 @@ send-ssh-key()
 		#
 		# Send email to add SSH key
 		#
-		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key fo Codebase Access for $HostName" support@slynet.com
+		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for $ORGANIZATION" support@slynet.com
 		sleep 60      # make sure it gets sent before reboot
 	else
 		# Generate a key
@@ -88,7 +108,7 @@ send-ssh-key()
 		#
 		# Send email to add SSH key
 		#
-		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key fo Codebase Access for $HostName" support@slynet.com
+		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for $ORGANIZATION" support@slynet.com
 		sleep 60      # make sure it gets sent before reboot
 	fi
 }
@@ -101,10 +121,13 @@ case "$1" in
   start)
         echo ""
         echo ""
-        echo $"Installing software .... "
+        echo "Installing software .... "
         echo ""
-        start
         do-install
+  ;;
+  auth)
+  	send-ssh-key
+  	motd
   ;;
   clean)
         echo ""
