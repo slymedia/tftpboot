@@ -51,9 +51,13 @@ do-install()
     cd /export/tftpboot/
     ./installer.sh >/root/installation.log 2>&1 &
     echo "Running the installation script...."
-    echo "To watch the installation process run the command:"
-    echo "tail -f /root/installation.log"
+    echo ""
     echo "Please be patient as this installation process can take a while to complete."
+    echo ""
+    echo ""
+    echo "To watch the installation process run the command:"
+    echo ""
+    echo "# tail -f /root/installation.log"
     echo ""
 }
 
