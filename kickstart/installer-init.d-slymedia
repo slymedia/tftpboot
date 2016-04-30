@@ -16,7 +16,11 @@ start()
 {
 	cd /;
         if [ -d /export/tftpboot ]; then
+        
+       	    echo "###### Warning ################################"
             echo "Installer has already been run on this machine!"
+            echo "###############################################"
+            echo ""
             echo "Please rename or remove the /export/tftpboot first and rerun this installer."
             echo "(service slymedia-installer start)"
             echo ""
