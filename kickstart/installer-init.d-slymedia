@@ -119,6 +119,22 @@ install-ssh-key()
 		tar -zxvf repo-key.tar.gz
 	fi
 }
+create-ssh-key()
+{
+	source-config
+	#
+	# put back ssh key or create a new ssh key. 
+	#
+	if [ -d /root/.ssh ]; then
+		if [ -d /root/.ssh-orig ]; then 
+			rm -rf /root/.ssh
+			mv /root/.ssh-orig /root/.ssh
+		fi
+	else
+		# Generate a new key
+		ssh-keygen -f ~/.ssh/id_rsa -N ""
+	fi
+}
 source-config()
 {
 	if [ ! -f /root/slymedia-installer.conf ]; then
