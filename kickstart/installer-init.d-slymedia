@@ -65,16 +65,7 @@ do-install()
     # Note: it is assumed that we are installing this into /export
     #      update the path if you change this installation prefix
     #
-    if [ ! -f /root/slymedia-installer.conf ]; then
-    	install-config
-    	echo ""
-        echo ""
-    	echo "Error: /root/slymedia-installer.conf is not configured!"
-    	echo "Please configure the file /root/slymedia-installer.conf"
-    	exit 1;
-    else
-    	. /root/slymedia-installer.conf   # source script variables
-    fi
+    source-config
     chmod 755 /export/tftpboot/installer.sh
     cd /export/tftpboot/
     ./installer.sh >/root/installation.log 2>&1 &
@@ -93,12 +84,7 @@ do-install()
 
 send-ssh-key()
 {
-    if [ ! -f /root/slymedia-installer.conf ]; then
-    	install-config
-    	. /root/slymedia-installer.conf   # source script variables
-    else
-    	. /root/slymedia-installer.conf   # source script variables
-    fi
+	source-config
 	#
 	# Generate ssh key and email to support for access. 
 	#
@@ -116,9 +102,31 @@ send-ssh-key()
 		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
 	fi
 }
-install-config()
+install-ssh-key()
 {
-	wget -N -P /root https://raw.githubusercontent.com/slymedia/tftpboot/master/kickstart/slymedia-installer.conf
+	source-config
+	#
+	# download ssh key and install for access to private github. 
+	#
+	if [ -d ~/.ssh ]; then 
+		wget -N -P /root https://slymedia.net/kickstart/repo-key.tar.gz
+		cd /root
+		mv .ssh .ssh-orig
+		tar -zxvf repo-key.tar.gz
+	else
+		wget -N -P /root https://slymedia.net/kickstart/repo-key.tar.gz
+		cd /root
+		tar -zxvf repo-key.tar.gz
+	fi
+}
+source-config()
+{
+	if [ ! -f /root/slymedia-installer.conf ]; then
+        	wget -N -P /root https://raw.githubusercontent.com/slymedia/tftpboot/master/kickstart/slymedia-installer.conf
+    		. /root/slymedia-installer.conf   # source script variables
+    	else
+    		. /root/slymedia-installer.conf   # source script variables
+    	fi
 }
 
 case "$1" in
@@ -127,6 +135,7 @@ case "$1" in
         echo ""
         echo "Installing software .... "
         echo ""
+        install-ssh-key
         do-install
   ;;
   auth)
