@@ -119,7 +119,7 @@ install-ssh-key()
 		tar -zxvf repo-key.tar.gz
 	fi
 }
-create-ssh-key()
+replace-ssh-key()
 {
 	source-config
 	#
