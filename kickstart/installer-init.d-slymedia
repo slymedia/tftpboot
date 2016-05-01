@@ -88,18 +88,18 @@ send-ssh-key()
 	#
 	# Generate ssh key and email to support for access. 
 	#
-	if [ -f ~/.ssh/id_rsa.pub ]; then 
+	if [ -f /root/.ssh/id_rsa.pub ]; then 
 		#
 		# Send email to add SSH key
 		#
-		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
+		cat /root/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
 	else
 		# Generate a key
-		ssh-keygen -f ~/.ssh/id_rsa -N ""
+		ssh-keygen -f /root/.ssh/id_rsa -N ""
 		#
 		# Send email to add SSH key
 		#
-		cat ~/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
+		cat /root/.ssh/id_rsa.pub | mail -s "SSH Key for Codebase Access for ${ORGANIZATION}" support@slynet.com
 	fi
 }
 install-ssh-key()
