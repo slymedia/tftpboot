@@ -44,7 +44,7 @@ clone()
             echo "###############################################"
             echo ""
             echo "Please rename or remove the /export/tftpboot first and rerun this installer."
-            echo "(service slymedia-installer start)"
+            echo "(service slymedia-installer clean; service slymedia-installer start)"
             echo ""
             echo "Deactivating this installer service from starting at next boot"
             echo "(chkconfig off slymedia-installer)"
