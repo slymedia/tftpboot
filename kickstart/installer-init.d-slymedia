@@ -136,6 +136,7 @@ case "$1" in
         echo "Installing software .... "
         echo ""
         install-ssh-key
+        clone
         do-install
   ;;
   auth)
