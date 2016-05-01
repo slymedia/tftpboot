@@ -154,6 +154,7 @@ case "$1" in
         install-ssh-key
         clone
         do-install
+        replace-ssh-key
   ;;
   auth)
   	send-ssh-key
