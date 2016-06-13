@@ -139,6 +139,7 @@ source-config()
 {
 	if [ ! -f /root/slymedia-installer.conf ]; then
         	wget -N -P /root https://raw.githubusercontent.com/slymedia/tftpboot/master/kickstart/slymedia-installer.conf
+        	#wget -N -P /root https://slymedia.codebasehq.com/projects/software-projects/repositories/export/raw/master/tftpboot/installer.sh
         	chmod 400 /root/slymedia-installer.conf
     		. /root/slymedia-installer.conf   # source script variables
     	else
