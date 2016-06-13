@@ -84,7 +84,7 @@ do-install()
 
 send-ssh-key()
 {
-	source-config
+	# source-config
 	#
 	# Generate ssh key and email to support for access. 
 	#
@@ -104,7 +104,7 @@ send-ssh-key()
 }
 install-ssh-key()
 {
-	source-config
+	# source-config
 	#
 	# download ssh key and install for access to private github. 
 	#
@@ -121,7 +121,7 @@ install-ssh-key()
 }
 replace-ssh-key()
 {
-	source-config
+	#source-config
 	#
 	# put back ssh key or create a new ssh key. 
 	#
