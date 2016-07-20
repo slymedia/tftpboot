@@ -171,7 +171,9 @@ case "$1" in
         echo "Done."
         echo ""
   ;;
-
+  config)
+      source-config
+  ;;
   stop|status|restart|reload|force-reload)
    # do nothing
  ;;
