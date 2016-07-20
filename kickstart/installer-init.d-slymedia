@@ -173,6 +173,9 @@ case "$1" in
   ;;
   config)
       source-config
+      echo ""
+      echo "Now edit /root/slymedia-installer.conf for your environment"
+      echo ""
   ;;
   stop|status|restart|reload|force-reload)
    # do nothing
