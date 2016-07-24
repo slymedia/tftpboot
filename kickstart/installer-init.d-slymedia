@@ -53,7 +53,8 @@ clone()
             exit 1;
         else
             yum -y install git gettext sendmail
-	    git clone git@codebasehq.com:slymedia/software-projects/export.git    # ssh key shared
+	    #git clone git@codebasehq.com:slymedia/software-projects/export.git    # ssh key shared codebasehq
+	    git clone git@github.com:slymedia/export.git			  # github.com
             chkconfig slymedia-installer off;
         fi
     return 0;
